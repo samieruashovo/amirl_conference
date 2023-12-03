@@ -1,0 +1,57 @@
+#root {
+  min-height: 100%;
+  position: relative;
+}
+
+@keyframes bgAnimate {
+  0% {
+    background-size: 100% 100%;
+  }
+  100% {
+    background-size: 120% 120%;
+  }
+}
+::selection {
+  background: #002958;
+  color: #fff;
+}
+::-moz-selection {
+  background: #002958;
+  color: #fff;
+}
+body {
+  /* font-family: "Overpass", sans-serif !important; */
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 15px !important;
+  min-height: 80vh;
+  background: #fff;
+  color: #1f1f1f;
+  background-size: 400% 400%;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+body::-webkit-scrollbar {
+  width: 0em; /* Set the width of the scrollbar */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the thumb */
+  border-radius: 0.5em; /* Rounded corners */
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent; /* Color of the track */
+}
+
+.slide-fade-in {
+  opacity: 0;
+  transform: translateY(10px); /* Start from below the viewport */
+  transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+}
+
+.slide-fade-in.active {
+  opacity: 1;
+  transform: translateY(0); /* Move to original position */
+}

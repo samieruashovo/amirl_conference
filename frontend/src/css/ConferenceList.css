@@ -1,0 +1,140 @@
+a {
+  text-decoration: none;
+  color: #1f1f1f;
+}
+
+.conference-wrap:hover {
+  box-shadow: 0px 3px 4px 2px rgba(121, 121, 121, 0.2);
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .conference-wrap {
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    transition: 0.4s ease-in-out all;
+  }
+  .conference-wrap {
+    flex-direction: column;
+  }
+  .conference-image {
+    /* width: 320px; */
+    /* height: 140px; */
+    border-radius: 10px 10px 0px 0px;
+    object-fit: cover;
+  }
+  .conference-details {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    /* margin-left: 20px; */
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .conference-wrap {
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    padding: 10px;
+    transition: 0.4s ease-in-out all;
+  }
+  .conference-details {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-left: 20px;
+    width: 100%;
+  }
+  .conference-image {
+    width: 320px;
+    height: 140px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+}
+
+.conference-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.conference-description {
+  font-size: 14px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.conference-date {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-location {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.conference-organizer {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-name {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-email {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-phone {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-website {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-social {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-social-link {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-social-icon {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.conference-organizer-social-icon:hover {
+  color: #3b72ae;
+}
+
+.conference-organizer-social-icon:active {
+  color: #3b72ae;
+}
+
+.conference-organizer-social-icon:focus {
+  color: #3b72ae;
+}
+
+.conference-organizer-social-icon:visited {
+  color: #3b72ae;
+}
+
+.conference-organizer-social-icon:link {
+  color: #3b72ae;
+}
