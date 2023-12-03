@@ -13,8 +13,8 @@ urlpatterns = [
     path('auth/token/',  include('djoser.urls.jwt')),
 
     path('api/', include('users.urls')),
-    # path('conference/', include('conference.urls')),
-    # path('paper/', include('paper.urls')),
+    path('conference/', include('conference.urls')),
+    path('paper/', include('paper.urls')),
     # path('review/', include('review.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
