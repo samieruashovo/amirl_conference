@@ -2,8 +2,37 @@ import React from "react";
 import "../css/Homepage.css";
 import "../css/ConferenceList.css";
 import { Clock } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
+import ConferenceList from "./ConferenceList";
+import Conference from "./Conference";
+import axios from "axios";
+import { API_URL } from "../config";
 
-const HomePage = () => {
+const LOCALHOST = `${API_URL}`;
+
+const HomePage = ({ conferences }) => {
+  function formatDate(date) {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = new Date(date).toLocaleDateString(undefined, options);
+    return formattedDate;
+  }
+  const [organizers, setOrganizers] = React.useState([]);
+
+  React.useEffect(() => {
+    conferences.forEach((conference) => {
+      conference.organizers.forEach((organizer) => {
+        axios
+          .get(`${LOCALHOST}/api/user/${organizer}/`)
+          .then((response) => {
+            setOrganizers((prevOrganizers) => [...prevOrganizers, response.data]);
+          })
+          .catch((error) => {
+            console.error("Error fetching data", error);
+          });
+      });
+    });
+  }, [conferences]);
+  console.log("organizers", organizers);
   return (
     <>
       {/* <div className="banner">
@@ -18,15 +47,15 @@ const HomePage = () => {
           <br />
           <p class="text">Create conference virtually and manage the paper submission and review process.</p>
           <div className="mt-4">
-            <a
-              href=""
+            <Link
+              to="/conference/host"
               class="bnr-btn"
               style={{
                 marginRight: "10px",
               }}
             >
               Host a Conference
-            </a>
+            </Link>
             <a href="" class="bnr-btn">
               Learn More
             </a>
@@ -35,41 +64,12 @@ const HomePage = () => {
       </div>
       <div className="container mt-4 ">
         <h3>RECENT CONFERENCES</h3>
+
         <hr />
-        <a href="#">
-          <div className="conference-wrap">
-            <img className="conference-image" src="https://images.pexels.com/photos/974314/pexels-photo-974314.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="" />
-            <div className="conference-details">
-              <div className="conference-title">Confernece on Agriculture</div>
-              <div className="conference-date">
-                <i className="bi bi-clock " style={{ marginRight: "6px" }} />
-                Sunday, Mar 24, 2024 &nbsp; - &nbsp; Submission Start: Mar 27, End: Apr 27
-              </div>
-              <dv className="conference-locaton">
-                <i className="bi bi-geo-alt" style={{ marginRight: "6px" }} />
-                Online - IEEE
-              </dv>
-              <div className="conference-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus facilis ipsam perferendis est placeat atque consequuntur illo enim nesciunt? Aspernatur?</div>
-            </div>
-          </div>
-        </a>
-        <a href="#">
-          <div className="conference-wrap">
-            <img className="conference-image" src="https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg" alt="" srcset="" />
-            <div className="conference-details">
-              <div className="conference-title">Confernece on Medical</div>
-              <div className="conference-date">
-                <i className="bi bi-clock " style={{ marginRight: "6px" }} />
-                Sunday, Mar 24, 2024 &nbsp; - &nbsp; Submission Start: Mar 27, End: Apr 27
-              </div>
-              <dv className="conference-locaton">
-                <i className="bi bi-geo-alt" style={{ marginRight: "6px" }} />
-                NYC, USA - IEEE
-              </dv>
-              <div className="conference-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus facilis ipsam perferendis est placeat atque consequuntur illo enim nesciunt? Aspernatur?</div>
-            </div>
-          </div>
-        </a>
+
+        {conferences.map((conference, index) => (
+          <ConferenceList conferenceID={conference.id} key={index} name={conference.name} acronym={conference.acronym} description={conference.description} organizers={organizers} submissionStart={formatDate(conference.submission_start)} submissionDeadline={formatDate(conference.submission_deadline)} conferenceDate={formatDate(conference.conference_date)} place={conference.place} website={conference.website} reviewers={conference.reviewers} thumbnail={conference.thumbnail} />
+        ))}
       </div>
     </>
   );
