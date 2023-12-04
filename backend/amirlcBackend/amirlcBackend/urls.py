@@ -15,6 +15,6 @@ urlpatterns = [
     path('api/', include('users.urls')),
     path('conference/', include('conference.urls')),
     path('paper/', include('paper.urls')),
-    # path('review/', include('review.urls')),
+    path('review/', include('review.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

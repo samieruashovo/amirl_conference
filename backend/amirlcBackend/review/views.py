@@ -1,19 +1,22 @@
-from django.shortcuts import render
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Review
+# serializers.py
+
+from rest_framework import viewsets, exceptions
 from .serializers import ReviewSerializer
-from rest_framework.views import APIView
-from rest_framework import viewsets, exceptions
-from rest_framework import viewsets, exceptions
-
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
-
-# Create your views here.
+from rest_framework.response import Response
+from rest_framework import serializers
+from .models import Review
 
 
-class ReviewListView(viewsets.ModelViewSet):
+# class ReviewSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Review
+#         fields = '__all__'
+#         extra_kwargs = {'comment': {'required': False}}
+
+# # views.py
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
@@ -22,16 +25,31 @@ class ReviewListView(viewsets.ModelViewSet):
         context["request"] = self.request
         return context
 
-    def create_review(self, request):
-        if request.method == 'POST':
-            serializer = ReviewSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors)
-        else:
-            raise exceptions.MethodNotAllowed(request.method)
-
     @classmethod
     def get_extra_actions(cls):
         return []
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=201, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(
+            instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    # def perform_destroy(self, instance):
+    #     instance.delete()
