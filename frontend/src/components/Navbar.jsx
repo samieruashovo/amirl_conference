@@ -2,13 +2,34 @@ import React from "react";
 import "../css/Navbar.css"; // Updated import path
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NavLink } from "react-router-dom"; // Import NavLink instead of Link
+import "../css/LogoRotate.css";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const [isRotated, setIsRotated] = useState(false);
+
+  const toggleRotation = () => {
+    setIsRotated(!isRotated);
+  };
+
+  useEffect(() => {
+    const rotationTimer = setTimeout(() => {
+      toggleRotation();
+    }, 2);
+
+    return () => clearTimeout(rotationTimer);
+  }, []);
+
+  const rotationClass = isRotated ? "rotate-image" : "";
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-blurry">
         <div className="container">
-          <img src="/logo.png" alt="AMIREM Logo" className="navbar-logo" />
+          <div className="logo-wrap">
+            <img src="/arrow.png" alt="EDMANAGER Logo" className={`rotating-image arrow ${rotationClass}`} />
+            <img src="/text.png" alt="EDMANAGER Logo" className="text" />
+          </div>
+          {/* <img src="/logo.png" alt="EDMANAGER Logo" className="navbar-logo" /> */}
           <div className="collapse navbar-collapse justify-content-left mx-4" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">

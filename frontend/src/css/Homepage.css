@@ -40,7 +40,7 @@
   .image-box__background {
     background-size: cover;
     /* background-position: center center; */
-    background-position: 0 -500px;
+    background-position: 0 -400px;
     object-fit: cover;
     background-repeat: no-repeat;
     background-image: url("https://images.pexels.com/photos/2305084/pexels-photo-2305084.jpeg");
@@ -92,9 +92,9 @@ The container box is relative so we can position stuff inside of it
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  height: 400px;
   background-repeat: no-repeat;
-  width: 100%;
+  min-width: 100%;
   object-fit: cover;
 }
 
@@ -151,6 +151,7 @@ to place the content appropriately
   align-items: center;
   justify-content: center;
   text-align: center;
+  width: 100% !important;
 }
 
 .bnr-btn {

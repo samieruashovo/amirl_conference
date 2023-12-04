@@ -11,6 +11,13 @@ import { API_URL } from "../config";
 const LOCALHOST = `${API_URL}`;
 
 const HomePage = ({ conferences }) => {
+  function truncateDescription(text, maxLength = 300) {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  }
+
   function formatDate(date) {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const formattedDate = new Date(date).toLocaleDateString(undefined, options);
@@ -45,7 +52,7 @@ const HomePage = ({ conferences }) => {
         <div class="image-box__content">
           <h1 class="title">Welcome to AMIR Editorial Management</h1>
           <br />
-          <p class="text">Create conference virtually and manage the paper submission and review process.</p>
+          <div class="t">Create conference virtually and manage the paper submission and review process.</div>
           <div className="mt-4">
             <Link
               to="/conference/host"
@@ -62,13 +69,13 @@ const HomePage = ({ conferences }) => {
           </div>
         </div>
       </div>
-      <div className="container mt-4 ">
+      <div className="container mt-5 ">
         <h3>RECENT CONFERENCES</h3>
 
         <hr />
 
         {conferences.map((conference, index) => (
-          <ConferenceList conferenceID={conference.id} key={index} name={conference.name} acronym={conference.acronym} description={conference.description} organizers={organizers} submissionStart={formatDate(conference.submission_start)} submissionDeadline={formatDate(conference.submission_deadline)} conferenceDate={formatDate(conference.conference_date)} place={conference.place} website={conference.website} reviewers={conference.reviewers} thumbnail={conference.thumbnail} />
+          <ConferenceList conferenceID={conference.id} key={index} name={conference.name} acronym={conference.acronym} description={truncateDescription(conference.description)} organizers={organizers} submissionStart={formatDate(conference.submission_start)} submissionDeadline={formatDate(conference.submission_deadline)} conferenceDate={formatDate(conference.conference_date)} place={conference.place} website={conference.website} reviewers={conference.reviewers} thumbnail={conference.thumbnail} />
         ))}
       </div>
     </>
