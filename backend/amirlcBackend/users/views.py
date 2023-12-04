@@ -10,8 +10,8 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
 class UserDetailView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    lookup_field = 'username'
-    lookup_url_kwarg = 'username'
+    lookup_field = 'id'
+    lookup_url_kwarg = 'id'
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

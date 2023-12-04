@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import ConferenceSerializer, ConferenceViewSerializer
 from .models import Conference
 from users.models import User
+from .permissions import ConferencePermissions
 
 # Create your views here.
 
@@ -13,7 +14,7 @@ from users.models import User
 class ConferenceViewSet(viewsets.ModelViewSet):
     queryset = Conference.objects.all()
     serializer_class = ConferenceViewSerializer
-    # permission_classes = [IsAuthenticated]
+    # permission_classes = [ConferencePermissions]
 
     def get_queryset(self):
         queryset = Conference.objects.all()

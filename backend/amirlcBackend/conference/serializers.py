@@ -19,8 +19,8 @@ class ConferenceSerializer(serializers.ModelSerializer):
             'description', instance.description)
         instance.thumbnail = validated_data.get(
             'thumbnail', instance.thumbnail)
-        instance.submission_satrt = validated_data.get(
-            'submission_satrt', instance.submission_satrt)
+        instance.submission_start = validated_data.get(
+            'submission_start', instance.submission_start)
         instance.submission_deadline = validated_data.get(
             'submission_deadline', instance.submission_deadline)
         instance.conference_date = validated_data.get(
@@ -34,6 +34,6 @@ class ConferenceSerializer(serializers.ModelSerializer):
 class ConferenceViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conference
-        fields = ['name', 'acronym', 'description', 'thumbnail', 'submission_satrt',
-                  'submission_deadline', 'conference_date', 'created_at', 'place', 'website']
+        fields = ['name', 'acronym', 'description', 'thumbnail', 'submission_start',
+                  'submission_deadline', 'conference_date', 'created_at', 'place', 'website', 'organizers']
         extra_kwargs = {'thumbnail': {'required': False}}

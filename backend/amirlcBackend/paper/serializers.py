@@ -6,6 +6,7 @@ from users.serializers import UserSerializer
 class PaperSerializer(serializers.ModelSerializer):
     authors = UserSerializer(many=True, read_only=True)
     reviewers = UserSerializer(many=True, read_only=True)
+    # reviews = serializers.SerializerMethodField()
 
     class Meta:
         model = Paper

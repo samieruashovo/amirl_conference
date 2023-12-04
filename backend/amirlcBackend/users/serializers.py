@@ -7,14 +7,15 @@ from rest_framework.fields import CurrentUserDefault
 class UserCreateSerializer(UserCreateSerializer):
     class Meta:
         model = User
-        fields = ['__all__']
+        fields = '__all__'
         extra_kwargs = {'password': {'write_only': True}}
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['__all__']
+        fields = ['id', 'username', 'first_name',
+                  'last_name', 'email', 'affiliation',]
         extra_kwargs = {'password': {'write_only': True}}
         extra_kwargs = {'email': {'write_only': True}}
 
@@ -40,7 +41,7 @@ class UserEditSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['__all__']
+        fields = '__all__'
         extra_kwargs = {'password': {'write_only': True}}
 
 
